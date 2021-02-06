@@ -1,4 +1,4 @@
-package library;
+package ejerciciolibrerias;
 
 import java.text.DecimalFormat;
 
@@ -15,11 +15,11 @@ public class Library {
          * indicado. Para saber qué posiciones hay que llenar, previamente hemos
          * tenido que registrar un array con valores TRUE en las posiciones
          * deseadas y envíarselo. La función llenará las posiciones que sean
-         * TRUE.
+         * TRUE. Es necesario enviarle la longitud entera para que haga sus comprobaciones.
          */
         int dato = 0;
         for (int i = 0; i < _length; i++) {
-            if (_arrayPositions[i] == true) { //Si la posición es true, se introduce dato.
+            if (_arrayPositions[i] == true) { //Si la posición es true, nos solicitará introducir un dato.
                 System.out.println("Introduzca el dato: "); //Se introduce el dato deseado
                 dato = Teclat.llegirInt();
                 _array[i] = dato;
@@ -33,7 +33,7 @@ public class Library {
          * Función que muestra un array hasta la posición indicada.
          */
         //Se recorre el array hasta la posición indicada
-        for (int i = 0; i < _position; i++) {
+        for (int i = 0; i <_position; i++) {
             System.out.print(_array[i] + "  ");
         }
     }
