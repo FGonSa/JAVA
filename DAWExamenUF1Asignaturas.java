@@ -1,30 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package examenuf1asignaturas;
+package remakeuf1;
 
 /**
  *
  * @author Frank.Santos
  */
-public class ExamenUF1Asignaturas {
+public class RemakeUF1 {
 
-    /**
-     * @param args the command line arguments
-     */
-    static final String[] ASIGNATURAS = new String[12];
-    static final float[] NOTAS = new float[ASIGNATURAS.length];
+    static final int LENGTHMAX = 12;
 
     public static void main(String[] args) {
 
-        boolean menu = true;
         int opcion, comprobador, posicion, aux, aux2;
         float nota;
         String asignatura;
 
-        while (menu) {
+        String[] ASIGNATURAS = new String[LENGTHMAX];
+        float[] NOTAS = new float[LENGTHMAX];
+
+        do {
             System.out.println("MENÚ");
             System.out.println("1. GUARDAR ASIGNATURA");
             System.out.println("2. ELIMINAR ASIGNATURA");
@@ -36,7 +29,6 @@ public class ExamenUF1Asignaturas {
 
             switch (opcion) {
                 case 0:
-                    menu = false;
                     break;
 
                 case 1:
@@ -44,57 +36,61 @@ public class ExamenUF1Asignaturas {
                     aux = 0;
                     aux2 = 0;
 
-                    //COMPROBAMOS SI ESTÁ LLENO.
-                    for (int i = 0; i < ASIGNATURAS.length; i++) {
+                    // COMPROBAMOS SI ESTÁ LLENO.
+                    for (int i = 0; i < LENGTHMAX; i++) {
                         if (ASIGNATURAS[i] != null) {
                             comprobador++;
                         }
                     }
-                    if (comprobador == ASIGNATURAS.length) {
+                    if (comprobador == LENGTHMAX) {
                         System.out.println("ERROR. Ya no se pueden guardar más asignaturas.");
-                        
-                        //SI HAY ESPACIO, PREGUNTAMOS POSICION.
+
+                        // SI HAY ESPACIO, PREGUNTAMOS POSICION.
                     } else {
                         System.out.println("Introduzca posición: ");
                         posicion = Teclat.llegirInt();
-                        if (posicion > ASIGNATURAS.length) {
-                            System.out.println("Error. Las posiciones abarcan del 0 al " + (ASIGNATURAS.length - 1));
+                        if (posicion > LENGTHMAX || posicion < 0) {
+                            System.out.println("Error. Las posiciones abarcan del 0 al " + (LENGTHMAX - 1));
                         } else {
-                            //COMPROBAMOS QUE EN LA POSICION INDICADA NO HAY NADA
+                            // COMPROBAMOS QUE EN LA POSICION INDICADA NO HAY NADA
                             if (ASIGNATURAS[posicion] != null) {
                                 aux++;
                             }
                             if (aux != 0) {
                                 System.out.println("ERROR. En esta posición ya hay información guardada.");
-                                //SI ESTÁ VACÍA, PREGUNTAMOS POR EL NOMBRE.
+                                // SI ESTÁ VACÍA, PREGUNTAMOS POR EL NOMBRE.
                             } else {
-                                System.out.println("Introduzca nombre de la asignatura: ");
-                                asignatura = Teclat.llegirString();
+                                do {
+                                    aux2=0;
+                                    System.out.println("Introduzca nombre de la asignatura: ");
+                                    asignatura = Teclat.llegirString();
 
-                                //COMPROBAMOS QUE EL NOMBRE NO ESTÉ EN USO
-                                for (int k = 0; k < ASIGNATURAS.length; k++) {
-                                    if (asignatura.equalsIgnoreCase(ASIGNATURAS[k])) {
-                                        aux2++;
+                                    // COMPROBAMOS QUE EL NOMBRE NO ESTÉ EN USO
+                                    for (int k = 0; k < LENGTHMAX; k++) {
+                                        if (asignatura.equalsIgnoreCase(ASIGNATURAS[k])) {
+                                            aux2++;
+                                        }
                                     }
-                                }
-                                if (aux2 != 0) {
-                                    System.out.println("Ya existe una asignatura con este nombre."
-                                            + " Modifique o elimine la anterior.");
-                                    
-                                    //NOMBRE LIBRE, PEDIMOS LA NOTA
-                                } else {
+                                    if (aux2 != 0) {
+                                        System.out.println("Ya existe una asignatura con este nombre."
+                                                + " Modifique o elimine la anterior.");
+
+                                        // NOMBRE LIBRE, PEDIMOS LA NOTA
+                                    }
+                                } while (aux2 != 0);
+                                do {
                                     System.out.println("Introduzca la nota de la asignatura: ");
                                     nota = Teclat.llegirFloat();
                                     if (nota < 0 || nota > 10) {
                                         System.out.println("ERROR: La nota debe ser entre 0 y 10");
-                                        
-                                        //SI LA NOTA ES CORRECTA, GUARDAMOS
-                                        //LOS DATOS EN LA POSICION.
+
+                                        // SI LA NOTA ES CORRECTA, GUARDAMOS
+                                        // LOS DATOS EN LA POSICION.
                                     } else {
                                         NOTAS[posicion] = nota;
                                         ASIGNATURAS[posicion] = asignatura;
                                     }
-                                }
+                                } while (nota < 0 || nota > 10);
                             }
                         }
                     }
@@ -104,14 +100,14 @@ public class ExamenUF1Asignaturas {
                     aux2 = 0;
                     System.out.println("Inserte el nombre de la asignatura a eliminar: ");
                     asignatura = Teclat.llegirString();
-                    //COMPROBAMOS SI EXISTE ALGUNA ASIGNATURA CON ESE NOMBRE
-                    //SI COINCIDE, GUARDAMOS LA POSICION.
-                    for (int k = 0; k < ASIGNATURAS.length; k++) {
+                    // COMPROBAMOS SI EXISTE ALGUNA ASIGNATURA CON ESE NOMBRE
+                    // SI COINCIDE, GUARDAMOS LA POSICION.
+                    for (int k = 0; k < LENGTHMAX; k++) {
                         if (asignatura.equalsIgnoreCase(ASIGNATURAS[k])) {
                             aux = k;
-                            aux2++; //+1 SI HAY COINCIDENCIA
+                            aux2++; // +1 SI HAY COINCIDENCIA
                         }
-                    } //SI HAY COINCIDENCIA, PROCEDEMOS A ELIMINAR
+                    } // SI HAY COINCIDENCIA, PROCEDEMOS A ELIMINAR
                     // UTILIZANDO LA POSICION QUE HABIAMOS GUARDADO.
                     // SEÑALAMOS AL ARRAY QUE VAYA A ESA POSICION Y ELIMINE.
                     if (aux2 != 0) {
@@ -124,22 +120,19 @@ public class ExamenUF1Asignaturas {
                     break;
                 case 3:
                     aux = 0;
-                    //COMPROBAMOS SI HAY ALGO GUARDADO CON EL FOR.
-                    //POR CADA NULO, SUMAMOS 1. SI AL FINAL TODO ES NULO, AVANZAMOS.
-                    for (int k = 0; k < ASIGNATURAS.length; k++) {
+                    // COMPROBAMOS SI HAY ALGO GUARDADO CON EL FOR.
+                    // POR CADA NULO, SUMAMOS 1. SI AL FINAL TODO ES NULO, AVANZAMOS.
+                    for (int k = 0; k < LENGTHMAX; k++) {
                         if (ASIGNATURAS[k] == null) {
                             aux++;
                         }
                     }
-                    if (aux == ASIGNATURAS.length) {//TODO NULO
+                    if (aux == LENGTHMAX) {// TODO NULO
                         System.out.println("No hay asignaturas guardadas para mostrar.");
-                    } else {//EXISTE ALGO, MOSTRAMOS LO QUE EXISTA. LOS NULOS NO.
-                        for (int j = 0; j < ASIGNATURAS.length; j++) {
-                            if (ASIGNATURAS[j] == null) {
-                                System.out.print("");
-                            } else {
-                                System.out.println(ASIGNATURAS[j].toUpperCase() + " - "
-                                        + "puntuación: " + NOTAS[j]);
+                    } else {// EXISTE ALGO, MOSTRAMOS LO QUE EXISTA. LOS NULOS NO.
+                        for (int j = 0; j < LENGTHMAX; j++) {
+                            if (ASIGNATURAS[j] != null) {
+                                System.out.println(ASIGNATURAS[j].toUpperCase() + " - " + "puntuación: " + NOTAS[j]);
                             }
                         }
                     }
@@ -147,6 +140,7 @@ public class ExamenUF1Asignaturas {
                 default:
                     System.out.println("Introduce una opción correcta.");
             }
-        }
+        } while (opcion
+                != 0);
     }
 }
