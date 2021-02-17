@@ -143,7 +143,7 @@ public class RemakeDAM {
 
     public static void changeScore(int _length, String[] _movies, int[] _score) {
 
-        int aux = 0;
+     
         String title;
         boolean match = false;
         int score = 0;
@@ -157,8 +157,8 @@ public class RemakeDAM {
                 i = j;
             }
             j++;
-        } while (j < _length || match == false);
-        if (match = true) {
+        } while (j < _length && match == false);
+        if (match == true) {
             score = inputScore();
             _score[i] = score;
         } else {
