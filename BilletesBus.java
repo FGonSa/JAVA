@@ -45,10 +45,10 @@ public class BilletesBus {
                 venta = ventaBilletes(_plazasLibres, _array);
                 if (venta == true) {
                     System.out.println("Venta realizada con éxito.");
-                   
+
                 } else {
                     System.out.println("La venta NO ha podido realizarse.");
-                 
+
                 }
                 break;
             case 2:
@@ -133,9 +133,11 @@ public class BilletesBus {
                 if (billete < 0) {
                     System.out.println("Introduce una cantidad válida!");
                 }
-                if (billete == 0) {
-                    System.out.println("No has introducido ningún billete a devolver.");
-                }
+            } while (billete < 0);
+            if (billete == 0) {
+                System.out.println("No has introducido ningún billete a devolver.");
+            } else {
+
                 if (billete > _array[0] || billete > _array[2]) {
                     System.out.println("No existen tantas plazas a devolver!");
                     System.out.println("No se ha podido efectuar la devolución.");
@@ -145,11 +147,12 @@ public class BilletesBus {
                     _array[2] = _array[2] - billete;
                     System.out.println("Devolución efectuada con éxito.");
                 }
-            } while (billete < 0);
-        }else{
+            }
+        } else {
             System.out.println("No se ha efectuado ninguna venta todavía.");
         }
         return _array[1];
     }
 
 }
+
